@@ -1,6 +1,6 @@
 # Reformulação do Formulário de Pagamento
 
-![Demo do Formulário](demo.gif)
+![Demo do Formulário](./assets/img/gif.gif)
 
 Este projeto é uma reformulação de um formulário de pagamento com o objetivo de torná-lo mais agradável, intuitivo e eficiente. Adicionamos uma animação que simula o preenchimento do cartão para tornar a experiência do usuário mais envolvente.
 
