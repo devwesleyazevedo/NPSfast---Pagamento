@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>FastQuest</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
+      <link rel="stylesheet" href="./style.css">
+   </head>
+   <body>
+      <div class="container">
+         <div class="card">
+            <div class="form">
+               <div class="left-side">
+                  <div class="left-heading">
+                     <h3>indeed</h3>
+                  </div>
+                  <div class="steps-content">
+                     <h3>Step <span class="step-number">1</span></h3>
+                     <p class="step-number-content active">Insira seus dados pessoais para se aproximar das empresas.</p>
+                     <p class="step-number-content d-none">Insira seus dados de pagamento.</p>
+                     <p class="step-number-content d-none">Ajude as empresas a conhecê-lo melhor, contando-lhes sobre suas experiências anteriores.</p>
+                     <p class="step-number-content d-none">Adicione sua foto de perfil e deixe que as empresas encontrem você rapidamente.</p>
+                  </div>
+                  <ul class="progress-bar">
+                     <li class="active">Informe seus dados</li>
+                     <li>Dados do pagamento</li>
+                     <li>Endereço de cobrança</li>
+                  </ul>
+               </div>
+               <div class="right-side">
+                  <div class="main active">
+                     <div class="input-text">
+                        <div class="input-div">
+                           <select>
+                              <option value="">Tipo do cliente</option>
+                              <option value="">Pessoa Física</option>
+                              <option value="">Pessoa Jurídica</option>
+                           </select>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Telefone</span>
+                        </div>
+                     </div>
+                     <div class="input-text">
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Nome completo</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>CPF</span>
+                        </div>
+                     </div>
+                     <div class="input-text">
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Endereço</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Número</span>
+                        </div>
+                     </div>
+                     <div class="input-text">
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Bairro</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Complemento</span>
+                        </div>
+                     </div>
+                     <div class="input-text">
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Cidade</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>UF</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>CEP</span>
+                        </div>
+                     </div>
+                     <div class="input-text">
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>E-mail</span>
+                        </div>
+                        <div class="input-div">
+                           <input type="text" required require>
+                           <span>Confirmar e-mail</span>
+                        </div>
+                     </div>
+                     <div class="buttons">
+                        <button class="next_button">Next Step</button>
+                     </div>
+                  </div>
+                  <div class="main">
+                     <!-- partial:index.partial.html -->
+                     <div class="" id="app">
+                        <div class="card-form">
+                           <div class="card-list">
+                              <div class="card-item" v-bind:class="{ '-active' : isCardFlipped }">
+                                 <div class="card-item__side -front">
+                                    <div class="card-item__focus" v-bind:class="{'-active' : focusElementStyle }" v-bind:style="focusElementStyle" ref="focusElement"></div>
+                                    <div class="card-item__cover">
+                                       <img
+                                          v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                                    </div>
+                                    <div class="card-item__wrapper">
+                                       <div class="card-item__top">
+                                          <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip">
+                                          <div class="card-item__type">
+                                             <transition name="slide-fade-up">
+                                                <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" v-bind:key="getCardType" alt="" class="card-item__typeImg">
+                                             </transition>
+                                          </div>
+                                       </div>
+                                       <label for="cardNumber" class="card-item__number" ref="cardNumber">
+                                          <template v-if="getCardType === 'amex'">
+                                             <span v-for="(n, $index) in amexCardMask" :key="$index">
+                                                <transition name="slide-fade-up">
+                                                   <div
+                                                      class="card-item__numberItem"
+                                                      v-if="$index > 4 && $index < 14 && cardNumber.length > $index && n.trim() !== ''"
+                                                      >*</div>
+                                                   <div class="card-item__numberItem"
+                                                      :class="{ '-active' : n.trim() === '' }"
+                                                      :key="$index" v-else-if="cardNumber.length > $index">
+                                                      {{cardNumber[$index]}}
+                                                   </div>
+                                                   <div
+                                                      class="card-item__numberItem"
+                                                      :class="{ '-active' : n.trim() === '' }"
+                                                      v-else
+                                                      :key="$index + 1"
+                                                      >{{n}}</div>
+                                                </transition>
+                                             </span>
+                                          </template>
+                                          <template v-else>
+                                             <span v-for="(n, $index) in otherCardMask" :key="$index">
+                                                <transition name="slide-fade-up">
+                                                   <div
+                                                      class="card-item__numberItem"
+                                                      v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''"
+                                                      >*</div>
+                                                   <div class="card-item__numberItem"
+                                                      :class="{ '-active' : n.trim() === '' }"
+                                                      :key="$index" v-else-if="cardNumber.length > $index">
+                                                      {{cardNumber[$index]}}
+                                                   </div>
+                                                   <div
+                                                      class="card-item__numberItem"
+                                                      :class="{ '-active' : n.trim() === '' }"
+                                                      v-else
+                                                      :key="$index + 1"
+                                                      >{{n}}</div>
+                                                </transition>
+                                             </span>
+                                          </template>
+                                       </label>
+                                       <div class="card-item__content">
+                                          <label for="cardName" class="card-item__info" ref="cardName">
+                                             <div class="card-item__holder">Nome impresso no cartão</div>
+                                             <transition name="slide-fade-up">
+                                                <div class="card-item__name" v-if="cardName.length" key="1">
+                                                   <transition-group name="slide-fade-right">
+                                                      <span class="card-item__nameItem" v-for="(n, $index) in cardName.replace(/\s\s+/g, ' ')" v-if="$index === $index" v-bind:key="$index + 1">{{n}}</span>
+                                                   </transition-group>
+                                                </div>
+                                                <div class="card-item__name" v-else key="2">NOME COMPLETO</div>
+                                             </transition>
+                                          </label>
+                                          <div class="card-item__date" ref="cardDate">
+                                             <label for="cardMonth" class="card-item__dateTitle">Validade</label>
+                                             <label for="cardMonth" class="card-item__dateItem">
+                                                <transition name="slide-fade-up">
+                                                   <span v-if="cardMonth" v-bind:key="cardMonth">{{cardMonth}}</span>
+                                                   <span v-else key="2">MM</span>
+                                                </transition>
+                                             </label>
+                                             /
+                                             <label for="cardYear" class="card-item__dateItem">
+                                                <transition name="slide-fade-up">
+                                                   <span v-if="cardYear" v-bind:key="cardYear">{{String(cardYear).slice(2,4)}}</span>
+                                                   <span v-else key="2">YY</span>
+                                                </transition>
+                                             </label>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="card-item__side -back">
+                                    <div class="card-item__cover">
+                                       <img
+                                          v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                                    </div>
+                                    <div class="card-item__band"></div>
+                                    <div class="card-item__cvv">
+                                       <div class="card-item__cvvTitle">CVV</div>
+                                       <div class="card-item__cvvBand">
+                                          <span v-for="(n, $index) in cardCvv" :key="$index">
+                                          *
+                                          </span>
+                                       </div>
+                                       <div class="card-item__type">
+                                          <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" class="card-item__typeImg">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card-form__inner">
+                              <div class="card-input">
+                                 <label for="cardNumber" class="card-input__label">Número do cartão</label>
+                                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                              </div>
+                              <div class="card-input">
+                                 <label for="cardName" class="card-input__label">Nome impresso no cartão</label>
+                                 <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+                              </div>
+                              <div class="card-form__row">
+                                 <div class="card-form__col">
+                                    <div class="card-form__group">
+                                       <label for="cardMonth" class="card-input__label">Validade</label>
+                                       <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                          <option value="" disabled selected>Mês</option>
+                                          <option v-bind:value="n < 10 ? '0' + n : n" v-for="n in 12" v-bind:disabled="n < minCardMonth" v-bind:key="n">
+                                             {{n < 10 ? '0' + n : n}}
+                                          </option>
+                                       </select>
+                                       <select class="card-input__input -select" id="cardYear" v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                          <option value="" disabled selected>Ano</option>
+                                          <option v-bind:value="$index + minCardYear" v-for="(n, $index) in 12" v-bind:key="n">
+                                             {{$index + minCardYear}}
+                                          </option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="card-form__col -cvv">
+                                    <div class="card-input">
+                                       <label for="cardCvv" class="card-input__label">CVV</label>
+                                       <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off">
+                                    </div>
+                                 </div>
+                              </div>
+                              <button class="card-form__button">
+                              Finalizar pedido
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- partial -->
+                  </div>
+                  <div class="main">
+                     <small><i class="fa fa-smile-o"></i></small>
+                     <div class="text">
+                        <h2>User Photo</h2>
+                        <p>Upload your profile picture and share yourself.</p>
+                     </div>
+                     <div class="user_card">
+                        <span></span>
+                        <div class="circle">
+                           <span><img src="https://i.imgur.com/hnwphgM.jpg"></span>
+                        </div>
+                        <div class="social">
+                           <span><i class="fa fa-share-alt"></i></span>
+                           <span><i class="fa fa-heart"></i></span>
+                        </div>
+                        <div class="user_name">
+                           <h3>Peter Hawkins</h3>
+                           <div class="detail">
+                              <p><a href="#">Izmar,Turkey</a>Hiring</p>
+                              <p>17 last day . 94Apply</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="buttons button_space">
+                        <button class="back_button">Back</button>
+                        <button class="submit_button">Submit</button>
+                     </div>
+                  </div>
+                  <div class="main">
+                     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                     </svg>
+                     <div class="text congrats">
+                        <h2>Congratulations!</h2>
+                        <p>Thanks Mr./Mrs. <span class="shown_name"></span> your information have been submitted successfully for the future reference we will contact you soon.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
+      <script src='https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js'></script>
+      <script  src="./script.js"></script>
