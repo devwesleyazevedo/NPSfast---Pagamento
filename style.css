@@ -1062,16 +1062,17 @@
      align-items: center;
      flex-wrap: wrap;
 }
+.switch_container  h6{
+    font-weight: 800;
+}
  .switch {
      display: flex;
      justify-content: start;
-     margin-bottom: 0;
-     margin-top: 50px 
 }
  .pricing-text {
      font-size: 16px;
      font-weight: 400;
-     text-transform: uppercase;
+     text-transform: capitalize;
 }
  .switch__checkbox {
      display: none;
@@ -1081,7 +1082,7 @@
 }
  .switch__switcher {
      width: 3.4rem;
-     height: 1.8rem;
+     height: 1.5rem;
      display: inline-block;
      border-radius: 10px;
      position: relative;
@@ -1095,14 +1096,40 @@
  .switch__switcher::before {
      content: "";
      border-radius: 50%;
-     height: 1.2rem;
-     width: 1.2rem;
+     height: 1rem;
+     width: 1rem;
      background-color: white;
      position: absolute;
-     top: 0.3rem;
+     top: 0.25rem;
      left: 0.25rem;
      z-index: 100000;
      display: inline-block;
      transition: all 0.4s;
 }
- 
+.switch_container.mobile {
+    display: none;
+}
+@media(max-width: 600px){
+    .switch_container.mobile {
+        display: block;
+    }
+    .switch {
+        align-items: center;
+        justify-content: center;
+    }
+    .switch__switcher {
+        width: 3rem;
+        height: 1.4rem;
+    }
+    .switch__switcher::before {
+        height: 0.8rem;
+        width: 0.8rem;
+    }
+    .pricing-text {
+        font-size: 0.9rem;
+        text-transform: capitalize;
+    }
+    .switch_container  h6{
+        text-align: center;
+    }
+}
